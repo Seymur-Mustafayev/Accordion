@@ -1,0 +1,16 @@
+name: Greet
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: hello
+        uses: ./.github/actions/greet
+        with:
+          who: "Teymur"
+      - run: echo "Time ${{ steps.hello.outputs.time }}"
