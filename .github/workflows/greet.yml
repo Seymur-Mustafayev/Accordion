@@ -12,5 +12,5 @@ jobs:
       - id: hello
         uses: ./.github/actions/greet
         with:
-          who: "Teymur"
+          who: "Huseyn Elekebrov"
       - run: echo "Time ${{ steps.hello.outputs.time }}"
