@@ -1,0 +1,21 @@
+name: "Greet"
+description: "Add name and Time"
+inputs:
+  who:
+    description: "Name"
+    required: true
+    default: "Seymur"
+
+outputs:
+  time:
+    description: "Time"
+    value: ${{ steps.t.outputs.time }}
+
+runs:
+  using: composite
+  steps:
+    - run: echo "Hello ${{ inputs.who }}"
+      shell: bash
+    - id: t
+      run: echo "time=$(date)" >> $GITHUB_OUTPUT
+      shell: bash
