@@ -1,0 +1,45 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: black;
+}
+
+h1 {
+  color: white;
+  margin-bottom: 10px;
+}
+.accordion-div {
+  max-width: 600px;
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+p {
+  color: white;
+  font-size: 14px;
+}
+
+.acor-heading {
+  cursor: pointer;
+  width: 100%;
+  font-size: 20px;
+}
+
+.hidden-class {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 400ms, opacity 400ms, visibility 400ms;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.hidden-class > span {
+  overflow: hidden;
+}
+
+.visible-class {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+}
