@@ -1,0 +1,46 @@
+name: Environments demo
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: DevCloud
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Show env info
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        run: |
+          echo "Environment: DevCloud"
+          echo "API_URL: ${{ vars.API_URL }}"
+          echo "DEPLOY_KEY hash: $(echo -n "$DEPLOY_KEY" | sha256sum | cut -c1-8)"
+
+  deploy-test:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: TestCloud
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Show env info
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        run: |
+          echo "Environment: TestCloud"
+          echo "API_URL: ${{ vars.API_URL }}"
+          echo "DEPLOY_KEY hash: $(echo -n "$DEPLOY_KEY" | sha256sum | cut -c1-8)"
